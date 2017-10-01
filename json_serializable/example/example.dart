@@ -24,6 +24,9 @@ class Person extends Object with _$PersonSerializerMixin {
   @JsonKey(nullable: false)
   List<Order> orders;
 
+  @JsonKey(nullable: true, name: 'related-people')
+  Map<String, Person> relatedPeople;
+
   Person(this.firstName, this.lastName, this.dateOfBirth,
       {this.middleName, this.lastOrder, List<Order> orders})
       : this.orders = orders ?? <Order>[];

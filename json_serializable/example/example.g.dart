@@ -16,7 +16,14 @@ Person _$PersonFromJson(Map<String, dynamic> json) => new Person(
         : DateTime.parse(json['last-order'] as String),
     orders: (json['orders'] as List)
         .map((e) => new Order.fromJson(e as Map<String, dynamic>))
-        .toList());
+        .toList())
+  ..relatedPeople = json['related-people'] == null
+      ? null
+      : new Map<String, Person>.fromIterables(
+          (json['related-people'] as Map<String, dynamic>).keys,
+          (json['related-people'] as Map).values.map((e) => e == null
+              ? null
+              : new Person.fromJson(e as Map<String, dynamic>)));
 
 abstract class _$PersonSerializerMixin {
   String get firstName;
@@ -25,6 +32,7 @@ abstract class _$PersonSerializerMixin {
   DateTime get dateOfBirth;
   DateTime get lastOrder;
   List<Order> get orders;
+  Map<String, Person> get relatedPeople;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
       'firstName': firstName,
@@ -41,6 +49,7 @@ abstract class _$PersonSerializerMixin {
     val['date-of-birth'] = dateOfBirth.toIso8601String();
     val['last-order'] = lastOrder?.toIso8601String();
     val['orders'] = orders;
+    val['related-people'] = relatedPeople;
     return val;
   }
 }

@@ -1,40 +1,52 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:math';
 
 import '../example/example.dart';
 import 'stats.dart';
 
-final _rnd = new Random();
+final _rnd = new Random(0);
 
-Order _randomOrder() => new Order()
+Order _randomOrder(int width) => new Order()
   ..itemNumber = _rnd.nextInt(100)
-  ..count = _rnd.nextInt(100)
+  ..count = _rnd.nextInt(width)
   ..isRushed = _rnd.nextBool();
 
-final _data = new Person('kevin', 'moore', new DateTime.now(),
+final _theDate = new DateTime(1979, 8, 16);
+
+Person _randomPerson(int width, int depth) => new Person(
+    'kevin', 'moore', _theDate,
     middleName: 'Robert',
-    lastOrder: new DateTime.now(),
-    orders: new List<Order>.generate(100, (i) => _randomOrder()));
+    lastOrder: _theDate,
+    orders: new List<Order>.generate(width, (i) => _randomOrder(100)))
+  ..relatedPeople = (depth < 1)
+      ? null
+      : new Map<String, Person>.fromIterable(new Iterable.generate(width),
+          key: (i) => i.toString(),
+          value: (_) => _randomPerson(width, depth - 1));
+
+final _data = _randomPerson(10, 2);
 
 void main() {
-  for (var i = 10; i < 100000; i*=10) {
-    var items = new List<int>.generate(i, (i) => run());
+  // print sample
+  print(const JsonEncoder.withIndent(' ').convert(_data));
+  print('');
 
-    var file = new File('data_$i.txt');
-    file.writeAsStringSync(items.join('\n'));
-  }
+  // dry run
+  var stats = new Stats.fromData(new Iterable<int>.generate(500, (i) => run()));
+  print(stats.count);
+
+  stats = new Stats.fromData(new Iterable<int>.generate(500, (i) => run()));
+
+  print(const JsonEncoder.withIndent(' ').convert(stats));
+  print(stats.standardDeviation / stats.mean);
 }
 
 int run() {
-  var timer = new Stopwatch();
-
-  String json;
-  Person data;
   try {
-    timer.start();
-    json = JSON.encode(_data);
-    data = new Person.fromJson(JSON.decode(json) as Map<String, dynamic>);
+    var timer = new Stopwatch()..start();
+    var json = JSON.encode(_data);
+    timer.stop();
+    assert(json.isNotEmpty);
     return timer.elapsedMicroseconds;
   } on JsonUnsupportedObjectError catch (e) {
     dynamic thing = e;
@@ -46,7 +58,5 @@ int run() {
     print(thing);
 
     rethrow;
-  } finally {
-    assert(json == null || JSON.encode(data) == json);
   }
 }
