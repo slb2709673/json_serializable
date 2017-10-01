@@ -1,5 +1,6 @@
-import 'dart:convert';
 import 'dart:math';
+
+import 'package:json/json.dart';
 
 import '../example/example.dart';
 import 'stats.dart';
@@ -35,7 +36,7 @@ void main() {
   var stats = new Stats.fromData(new Iterable<int>.generate(500, (i) => run()));
   print(stats.count);
 
-  stats = new Stats.fromData(new Iterable<int>.generate(500, (i) => run()));
+  stats = new Stats.fromData(new Iterable<int>.generate(5000, (i) => run()));
 
   print(const JsonEncoder.withIndent(' ').convert(stats));
   print(stats.standardDeviation / stats.mean);
