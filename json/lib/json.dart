@@ -568,8 +568,6 @@ abstract class _JsonStringifier implements JsonWriter {
   static const int CHAR_t = 0x74;
   static const int CHAR_u = 0x75;
 
-  /** List of objects currently being traversed. Used to detect cycles. */
-  final List _seen = new List();
   /** Function called for each un-encodable object encountered. */
   final _ToEncodable _toEncodable;
 
@@ -650,33 +648,6 @@ abstract class _JsonStringifier implements JsonWriter {
   }
 
   /**
-   * Check if an encountered object is already being traversed.
-   *
-   * Records the object if it isn't already seen. Should have a matching call to
-   * [_removeSeen] when the object is no longer being traversed.
-   */
-  void _checkCycle(object) {
-    for (int i = 0; i < _seen.length; i++) {
-      if (identical(object, _seen[i])) {
-        throw new JsonCyclicError(object);
-      }
-    }
-    _seen.add(object);
-  }
-
-  /**
-   * Remove [object] from the list of currently traversed objects.
-   *
-   * Should be called in the opposite order of the matching [_checkCycle]
-   * calls.
-   */
-  void _removeSeen(object) {
-    assert(!_seen.isEmpty);
-    assert(identical(_seen.last, object));
-    _seen.removeLast();
-  }
-
-  /**
    * Write an object.
    *
    * If [object] isn't directly encodable, the [_toEncodable] function gets one
@@ -687,7 +658,6 @@ abstract class _JsonStringifier implements JsonWriter {
     // Map, call toJson() to get a custom representation and try serializing
     // that.
     if (writeJsonValue(object)) return;
-    _checkCycle(object);
     try {
       if (_writer != null && _writer(object, this)) {
         return;
@@ -704,9 +674,7 @@ abstract class _JsonStringifier implements JsonWriter {
         throw new JsonUnsupportedObjectError(object,
             cause: e, partialResult: _partialResult);
       }
-    } finally {
-      _removeSeen(object);
-    }
+    } finally {}
   }
 
   /**
@@ -735,15 +703,11 @@ abstract class _JsonStringifier implements JsonWriter {
       writeString('"');
       return true;
     } else if (object is List) {
-      _checkCycle(object);
       writeList(object);
-      _removeSeen(object);
       return true;
     } else if (object is Map) {
-      _checkCycle(object);
       // writeMap can fail if keys are not all strings.
       var success = writeMap(object);
-      _removeSeen(object);
       return success;
     } else {
       return false;
@@ -840,29 +804,21 @@ abstract class _JsonPrettyPrintMixin implements _JsonStringifier {
       writeString("{}");
       return true;
     }
-    List keyValueList = new List(map.length * 2);
-    int i = 0;
-    bool allStringKeys = true;
-    map.forEach((key, value) {
-      if (key is! String) {
-        allStringKeys = false;
-      }
-      keyValueList[i++] = key;
-      keyValueList[i++] = value;
-    });
-    if (!allStringKeys) return false;
+
     writeString('{\n');
     increaseIndent();
+
     String separator = "";
-    for (int i = 0; i < keyValueList.length; i += 2) {
+
+    map.forEach((key, value) {
       writeString(separator);
       separator = ",\n";
       writeIndentation();
       writeString('"');
-      writeStringContent(keyValueList[i]);
+      writeStringContent(key);
       writeString('": ');
-      writeObject(keyValueList[i + 1]);
-    }
+      writeObject(value);
+    });
     writeString('\n');
     decreaseIndent();
     writeIndentation();
