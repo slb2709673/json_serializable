@@ -3,7 +3,7 @@
 ## Initial
 Using my own copy of `JsonEncoder` and friends – no changes from `dart:convert`.
 
-##custom writer
+## custom writer
 Instead of generating a generic `Map` for each call to `toJson` return
 an instance of a custom `JsonMapWrapper` class specialized for the target type. This custom map
 looks like an immutable map, except that it only corresponds to the target instance.
