@@ -7,89 +7,12 @@ import 'stats.dart';
 
 final _rnd = new Random(0);
 
-bool _customWriter(Object source, JsonWriter writer) {
-  List items;
-  if (source is Person) {
-    items = _itemsForPerson(source);
-  } else if (source is Order) {
-    items = _itemsForOrder(source);
-  }
-
-  if (items != null) {
-    _writeItems(items, writer);
-    return true;
-  }
-
-  return false;
-}
-
-List<Object> _itemsForPerson(Person person) => [
-      'firstName',
-      person.firstName,
-      'middleName',
-      person.middleName,
-      'lastName',
-      person.lastName,
-      'date-of-birth',
-      person.dateOfBirth.toIso8601String(),
-      'last-order',
-      person.dateOfBirth.toIso8601String(),
-      'orders',
-      person.orders,
-      'related-people',
-      person.relatedPeople
-    ];
-
-List<Object> _itemsForOrder(Order order) => [
-      'count',
-      order.count,
-      'itemNumber',
-      order.itemNumber,
-      'isRushed',
-      order.isRushed
-    ];
-
-void _writeItems(List keyValueList, JsonWriter writer) {
-  if (writer.isPretty) {
-    writer.writeString('{\n');
-
-    writer.increaseIndent();
-
-    String separator = "";
-    for (int i = 0; i < keyValueList.length; i += 2) {
-      writer.writeString(separator);
-      separator = ",\n";
-      writer.writeIndentation();
-      writer.writeString('"');
-      writer.writeStringContent(keyValueList[i] as String);
-      writer.writeString('": ');
-      writer.writeObject(keyValueList[i + 1]);
-    }
-    writer.writeString('\n');
-
-    writer.decreaseIndent();
-
-    writer.writeIndentation();
-    writer.writeString('}');
-  } else {
-    writer.writeString('{');
-    String separator = '"';
-    for (int i = 0; i < keyValueList.length; i += 2) {
-      writer.writeString(separator);
-      separator = ',"';
-      writer.writeStringContent(keyValueList[i] as String);
-      writer.writeString('":');
-      writer.writeObject(keyValueList[i + 1]);
-    }
-    writer.writeString('}');
-  }
-}
 
 String _convert(Object input) =>
-    const JsonEncoder(null, _customWriter).convert(input);
+    const JsonEncoder(null).convert(input);
 
 String _convertIndented(Object input) =>
-    const JsonEncoder.withIndent(' ', _customWriter).convert(input);
+    const JsonEncoder.withIndent(' ', null).convert(input);
 
 Order _randomOrder(int width) => new Order()
   ..itemNumber = _rnd.nextInt(100)

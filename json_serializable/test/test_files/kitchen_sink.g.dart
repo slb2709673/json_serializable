@@ -49,7 +49,7 @@ KitchenSink _$KitchenSinkFromJson(Map<String, dynamic> json) => new KitchenSink(
   ..writeNotNull = json['writeNotNull'] as bool
   ..string = json[r'$string'] as String;
 
-abstract class _$KitchenSinkSerializerMixin {
+abstract class _$KitchenSinkSerializerMixin implements JsonWriteMySelf {
   DateTime get dateTime;
   Iterable<dynamic> get iterable;
   Iterable<dynamic> get dynamicIterable;
@@ -119,5 +119,329 @@ abstract class _$KitchenSinkSerializerMixin {
     val['writeNotNull'] = this.writeNotNull;
     val[r'$string'] = string;
     return val;
+  }
+
+  @override
+  bool writeJson(JsonWriter writer) {
+    if (writer.isPretty) {
+      writer.writeString('{\n');
+
+      writer.increaseIndent();
+
+      var separator = '';
+
+      if (dateTime != null) {
+        writer.writeString(separator);
+        separator = ',\n';
+        writer.writeIndentation();
+        writer.writeString('"');
+        writer.writeStringContent('dateTime');
+        writer.writeString('": ');
+        writer.writeObject(dateTime?.toIso8601String());
+      }
+      if (iterable != null) {
+        writer.writeString(separator);
+        separator = ',\n';
+        writer.writeIndentation();
+        writer.writeString('"');
+        writer.writeStringContent('iterable');
+        writer.writeString('": ');
+        writer.writeObject(iterable?.toList());
+      }
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('dynamicIterable');
+      writer.writeString('": ');
+      writer.writeObject(dynamicIterable?.toList());
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('objectIterable');
+      writer.writeString('": ');
+      writer.writeObject(objectIterable?.toList());
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('intIterable');
+      writer.writeString('": ');
+      writer.writeObject(intIterable?.toList());
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('datetime-iterable');
+      writer.writeString('": ');
+      writer.writeObject(
+          dateTimeIterable?.map((e) => e?.toIso8601String())?.toList());
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('list');
+      writer.writeString('": ');
+      writer.writeObject(list);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('dynamicList');
+      writer.writeString('": ');
+      writer.writeObject(dynamicList);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('objectList');
+      writer.writeString('": ');
+      writer.writeObject(objectList);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('intList');
+      writer.writeString('": ');
+      writer.writeObject(intList);
+
+      if (dateTimeList != null) {
+        writer.writeString(separator);
+        separator = ',\n';
+        writer.writeIndentation();
+        writer.writeString('"');
+        writer.writeStringContent('dateTimeList');
+        writer.writeString('": ');
+        writer.writeObject(
+            dateTimeList?.map((e) => e?.toIso8601String())?.toList());
+      }
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('map');
+      writer.writeString('": ');
+      writer.writeObject(map);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('stringStringMap');
+      writer.writeString('": ');
+      writer.writeObject(stringStringMap);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('stringIntMap');
+      writer.writeString('": ');
+      writer.writeObject(stringIntMap);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('stringDateTimeMap');
+      writer.writeString('": ');
+      writer.writeObject(stringDateTimeMap == null
+          ? null
+          : new Map<String, dynamic>.fromIterables(stringDateTimeMap.keys,
+              stringDateTimeMap.values.map((e) => e?.toIso8601String())));
+
+      if (crazyComplex != null) {
+        writer.writeString(separator);
+        separator = ',\n';
+        writer.writeIndentation();
+        writer.writeString('"');
+        writer.writeStringContent('crazyComplex');
+        writer.writeString('": ');
+        writer.writeObject(crazyComplex
+            ?.map((e) => e == null
+                ? null
+                : new Map<String, dynamic>.fromIterables(
+                    e.keys,
+                    e.values.map((e) => e == null
+                        ? null
+                        : new Map<String, dynamic>.fromIterables(
+                            e.keys,
+                            e.values.map((e) => e
+                                ?.map((e) => e
+                                    ?.map((e) => e?.toIso8601String())
+                                    ?.toList())
+                                ?.toList())))))
+            ?.toList());
+      }
+      if (val != null) {
+        writer.writeString(separator);
+        separator = ',\n';
+        writer.writeIndentation();
+        writer.writeString('"');
+        writer.writeStringContent('val');
+        writer.writeString('": ');
+        writer.writeObject(val);
+      }
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('writeNotNull');
+      writer.writeString('": ');
+      writer.writeObject(writeNotNull);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent(r'$string');
+      writer.writeString('": ');
+      writer.writeObject(string);
+
+      writer.writeString('\n');
+
+      writer.decreaseIndent();
+
+      writer.writeIndentation();
+    } else {
+      writer.writeString('{');
+      var separator = '"';
+
+      if (dateTime != null) {
+        writer.writeString(separator);
+        separator = ',"';
+        writer.writeStringContent('dateTime');
+        writer.writeString('":');
+        writer.writeObject(dateTime?.toIso8601String());
+      }
+      if (iterable != null) {
+        writer.writeString(separator);
+        separator = ',"';
+        writer.writeStringContent('iterable');
+        writer.writeString('":');
+        writer.writeObject(iterable?.toList());
+      }
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('dynamicIterable');
+      writer.writeString('":');
+      writer.writeObject(dynamicIterable?.toList());
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('objectIterable');
+      writer.writeString('":');
+      writer.writeObject(objectIterable?.toList());
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('intIterable');
+      writer.writeString('":');
+      writer.writeObject(intIterable?.toList());
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('datetime-iterable');
+      writer.writeString('":');
+      writer.writeObject(
+          dateTimeIterable?.map((e) => e?.toIso8601String())?.toList());
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('list');
+      writer.writeString('":');
+      writer.writeObject(list);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('dynamicList');
+      writer.writeString('":');
+      writer.writeObject(dynamicList);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('objectList');
+      writer.writeString('":');
+      writer.writeObject(objectList);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('intList');
+      writer.writeString('":');
+      writer.writeObject(intList);
+      if (dateTimeList != null) {
+        writer.writeString(separator);
+        separator = ',"';
+        writer.writeStringContent('dateTimeList');
+        writer.writeString('":');
+        writer.writeObject(
+            dateTimeList?.map((e) => e?.toIso8601String())?.toList());
+      }
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('map');
+      writer.writeString('":');
+      writer.writeObject(map);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('stringStringMap');
+      writer.writeString('":');
+      writer.writeObject(stringStringMap);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('stringIntMap');
+      writer.writeString('":');
+      writer.writeObject(stringIntMap);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('stringDateTimeMap');
+      writer.writeString('":');
+      writer.writeObject(stringDateTimeMap == null
+          ? null
+          : new Map<String, dynamic>.fromIterables(stringDateTimeMap.keys,
+              stringDateTimeMap.values.map((e) => e?.toIso8601String())));
+      if (crazyComplex != null) {
+        writer.writeString(separator);
+        separator = ',"';
+        writer.writeStringContent('crazyComplex');
+        writer.writeString('":');
+        writer.writeObject(crazyComplex
+            ?.map((e) => e == null
+                ? null
+                : new Map<String, dynamic>.fromIterables(
+                    e.keys,
+                    e.values.map((e) => e == null
+                        ? null
+                        : new Map<String, dynamic>.fromIterables(
+                            e.keys,
+                            e.values.map((e) => e
+                                ?.map((e) => e
+                                    ?.map((e) => e?.toIso8601String())
+                                    ?.toList())
+                                ?.toList())))))
+            ?.toList());
+      }
+      if (val != null) {
+        writer.writeString(separator);
+        separator = ',"';
+        writer.writeStringContent('val');
+        writer.writeString('":');
+        writer.writeObject(val);
+      }
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('writeNotNull');
+      writer.writeString('":');
+      writer.writeObject(writeNotNull);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent(r'$string');
+      writer.writeString('":');
+      writer.writeObject(string);
+    }
+    writer.writeString('}');
+
+    return true;
   }
 }

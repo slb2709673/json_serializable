@@ -36,6 +36,8 @@ class JsonSerializableGenerator
 
   final List<TypeHelper> _typeHelpers;
 
+  final bool includeWriter = true;
+
   /// Creates an instance of [JsonSerializableGenerator].
   ///
   /// If [typeHelpers] is not provided, two built-in helpers are used:
@@ -117,10 +119,12 @@ class JsonSerializableGenerator
     }
 
     if (annotation.read('createToJson').boolValue) {
+      var implements = this.includeWriter ? 'implements JsonWriteMySelf ' : '';
+
       //
       // Generate the mixin class
       //
-      buffer.writeln('abstract class ${prefix}SerializerMixin {');
+      buffer.writeln('abstract class ${prefix}SerializerMixin $implements{');
 
       // write copies of the fields - this allows the toJson method to access
       // the fields of the target class
@@ -140,11 +144,89 @@ class JsonSerializableGenerator
         _writeToJsonWithNullChecks(buffer, fields.values, includeIfNull);
       }
 
+      if (includeWriter) {
+        _writeWriter(buffer, fields.values, includeIfNull);
+      }
+
       // end of the mixin class
       buffer.write('}');
     }
 
     return buffer.toString();
+  }
+
+  void _writeWriter(StringBuffer buffer, Iterable<FieldElement> fields,
+      bool classIncludeIfNull) {
+    assert(includeWriter);
+
+    var indentedItems = new StringBuffer();
+    var items = new StringBuffer();
+
+    for (var field in fields) {
+      //       pairs.add('${_safeNameAccess(field)}: ${_serializeField(field )}');
+
+      var skipIfNull = !_includeIfNull(field, classIncludeIfNull);
+
+      if (skipIfNull) {
+        indentedItems.writeln('if (${field.name} != null) {');
+        items.writeln('if (${field.name} != null) {');
+      }
+
+      indentedItems.writeln('writer.writeString(separator);');
+      indentedItems.writeln("separator = ',\\n';");
+
+      indentedItems.writeln('writer.writeIndentation();');
+      indentedItems.writeln("writer.writeString('\"');");
+      indentedItems
+          .writeln('writer.writeStringContent(${_safeNameAccess(field)});');
+      indentedItems.writeln("writer.writeString('\": ');");
+      indentedItems.writeln('writer.writeObject(${_serializeField(field )});');
+      indentedItems.writeln();
+
+      items.writeln('writer.writeString(separator);');
+      items.writeln("separator = ',\"';");
+      items.writeln('writer.writeStringContent(${_safeNameAccess(field)});');
+      items.writeln("writer.writeString('\":');");
+      items.writeln('writer.writeObject(${_serializeField(field )});');
+
+      if (skipIfNull) {
+        // close if block
+        indentedItems.writeln('}');
+        items.writeln('}');
+      }
+
+
+    }
+
+    buffer.writeln('''
+
+@override
+bool writeJson(JsonWriter writer) {
+  if (writer.isPretty) {
+    writer.writeString('{\\n');
+
+    writer.increaseIndent();
+
+    var separator = '';
+    
+    $indentedItems    
+    
+    writer.writeString('\\n');
+
+    writer.decreaseIndent();
+
+    writer.writeIndentation();
+  } else {
+    writer.writeString('{');
+    var separator = '"';
+    
+    $items
+  }
+  writer.writeString('}');
+''');
+
+    buffer.writeln('''return true;
+    }''');
   }
 
   void _writeToJsonWithNullChecks(StringBuffer buffer,

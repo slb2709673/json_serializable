@@ -4,5 +4,8 @@
 
 /// Use these annotations on members you'd like to enable source generation on.
 
+export 'package:json/json.dart' show JsonWriteMySelf, JsonWriter;
+
 export 'src/json_literal.dart';
 export 'src/json_serializable.dart';
+

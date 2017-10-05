@@ -532,6 +532,10 @@ dynamic _defaultToEncodable(dynamic object) => object.toJson();
 
 typedef bool WriteObject(Object source, JsonWriter writer);
 
+abstract class JsonWriteMySelf {
+  bool writeJson(JsonWriter writer);
+}
+
 abstract class JsonWriter {
   void writeString(String characters);
 
@@ -659,6 +663,9 @@ abstract class _JsonStringifier implements JsonWriter {
     // that.
     if (writeJsonValue(object)) return;
     try {
+      if (object is JsonWriteMySelf && object.writeJson(this)) {
+        return;
+      }
       if (_writer != null && _writer(object, this)) {
         return;
       }

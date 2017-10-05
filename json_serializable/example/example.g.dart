@@ -25,7 +25,7 @@ Person _$PersonFromJson(Map<String, dynamic> json) => new Person(
               ? null
               : new Person.fromJson(e as Map<String, dynamic>)));
 
-abstract class _$PersonSerializerMixin {
+abstract class _$PersonSerializerMixin implements JsonWriteMySelf {
   String get firstName;
   String get middleName;
   String get lastName;
@@ -52,6 +52,124 @@ abstract class _$PersonSerializerMixin {
     val['related-people'] = relatedPeople;
     return val;
   }
+
+  @override
+  bool writeJson(JsonWriter writer) {
+    if (writer.isPretty) {
+      writer.writeString('{\n');
+
+      writer.increaseIndent();
+
+      var separator = '';
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('firstName');
+      writer.writeString('": ');
+      writer.writeObject(firstName);
+
+      if (middleName != null) {
+        writer.writeString(separator);
+        separator = ',\n';
+        writer.writeIndentation();
+        writer.writeString('"');
+        writer.writeStringContent('middleName');
+        writer.writeString('": ');
+        writer.writeObject(middleName);
+      }
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('lastName');
+      writer.writeString('": ');
+      writer.writeObject(lastName);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('date-of-birth');
+      writer.writeString('": ');
+      writer.writeObject(dateOfBirth.toIso8601String());
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('last-order');
+      writer.writeString('": ');
+      writer.writeObject(lastOrder?.toIso8601String());
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('orders');
+      writer.writeString('": ');
+      writer.writeObject(orders);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('related-people');
+      writer.writeString('": ');
+      writer.writeObject(relatedPeople);
+
+      writer.writeString('\n');
+
+      writer.decreaseIndent();
+
+      writer.writeIndentation();
+    } else {
+      writer.writeString('{');
+      var separator = '"';
+
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('firstName');
+      writer.writeString('":');
+      writer.writeObject(firstName);
+      if (middleName != null) {
+        writer.writeString(separator);
+        separator = ',"';
+        writer.writeStringContent('middleName');
+        writer.writeString('":');
+        writer.writeObject(middleName);
+      }
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('lastName');
+      writer.writeString('":');
+      writer.writeObject(lastName);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('date-of-birth');
+      writer.writeString('":');
+      writer.writeObject(dateOfBirth.toIso8601String());
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('last-order');
+      writer.writeString('":');
+      writer.writeObject(lastOrder?.toIso8601String());
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('orders');
+      writer.writeString('":');
+      writer.writeObject(orders);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('related-people');
+      writer.writeString('":');
+      writer.writeObject(relatedPeople);
+    }
+    writer.writeString('}');
+
+    return true;
+  }
 }
 
 Order _$OrderFromJson(Map<String, dynamic> json) => new Order()
@@ -62,7 +180,7 @@ Order _$OrderFromJson(Map<String, dynamic> json) => new Order()
       ? null
       : new Item.fromJson(json['item'] as Map<String, dynamic>);
 
-abstract class _$OrderSerializerMixin {
+abstract class _$OrderSerializerMixin implements JsonWriteMySelf {
   int get count;
   int get itemNumber;
   bool get isRushed;
@@ -81,6 +199,95 @@ abstract class _$OrderSerializerMixin {
     writeNotNull('isRushed', isRushed);
     writeNotNull('item', item);
     return val;
+  }
+
+  @override
+  bool writeJson(JsonWriter writer) {
+    if (writer.isPretty) {
+      writer.writeString('{\n');
+
+      writer.increaseIndent();
+
+      var separator = '';
+
+      if (count != null) {
+        writer.writeString(separator);
+        separator = ',\n';
+        writer.writeIndentation();
+        writer.writeString('"');
+        writer.writeStringContent('count');
+        writer.writeString('": ');
+        writer.writeObject(count);
+      }
+      if (itemNumber != null) {
+        writer.writeString(separator);
+        separator = ',\n';
+        writer.writeIndentation();
+        writer.writeString('"');
+        writer.writeStringContent('itemNumber');
+        writer.writeString('": ');
+        writer.writeObject(itemNumber);
+      }
+      if (isRushed != null) {
+        writer.writeString(separator);
+        separator = ',\n';
+        writer.writeIndentation();
+        writer.writeString('"');
+        writer.writeStringContent('isRushed');
+        writer.writeString('": ');
+        writer.writeObject(isRushed);
+      }
+      if (item != null) {
+        writer.writeString(separator);
+        separator = ',\n';
+        writer.writeIndentation();
+        writer.writeString('"');
+        writer.writeStringContent('item');
+        writer.writeString('": ');
+        writer.writeObject(item);
+      }
+
+      writer.writeString('\n');
+
+      writer.decreaseIndent();
+
+      writer.writeIndentation();
+    } else {
+      writer.writeString('{');
+      var separator = '"';
+
+      if (count != null) {
+        writer.writeString(separator);
+        separator = ',"';
+        writer.writeStringContent('count');
+        writer.writeString('":');
+        writer.writeObject(count);
+      }
+      if (itemNumber != null) {
+        writer.writeString(separator);
+        separator = ',"';
+        writer.writeStringContent('itemNumber');
+        writer.writeString('":');
+        writer.writeObject(itemNumber);
+      }
+      if (isRushed != null) {
+        writer.writeString(separator);
+        separator = ',"';
+        writer.writeStringContent('isRushed');
+        writer.writeString('":');
+        writer.writeObject(isRushed);
+      }
+      if (item != null) {
+        writer.writeString(separator);
+        separator = ',"';
+        writer.writeStringContent('item');
+        writer.writeString('":');
+        writer.writeObject(item);
+      }
+    }
+    writer.writeString('}');
+
+    return true;
   }
 }
 

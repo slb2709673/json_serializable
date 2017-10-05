@@ -18,7 +18,7 @@ Person _$PersonFromJson(Map<String, dynamic> json) => new Person(
         ? null
         : DateTime.parse(json['dateOfBirth'] as String));
 
-abstract class _$PersonSerializerMixin {
+abstract class _$PersonSerializerMixin implements JsonWriteMySelf {
   String get firstName;
   String get middleName;
   String get lastName;
@@ -31,6 +31,95 @@ abstract class _$PersonSerializerMixin {
         'dateOfBirth': dateOfBirth?.toIso8601String(),
         r'$house': house == null ? null : house.toString().split('.')[1]
       };
+
+  @override
+  bool writeJson(JsonWriter writer) {
+    if (writer.isPretty) {
+      writer.writeString('{\n');
+
+      writer.increaseIndent();
+
+      var separator = '';
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('firstName');
+      writer.writeString('": ');
+      writer.writeObject(firstName);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('middleName');
+      writer.writeString('": ');
+      writer.writeObject(middleName);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('lastName');
+      writer.writeString('": ');
+      writer.writeObject(lastName);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('dateOfBirth');
+      writer.writeString('": ');
+      writer.writeObject(dateOfBirth?.toIso8601String());
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent(r'$house');
+      writer.writeString('": ');
+      writer.writeObject(house == null ? null : house.toString().split('.')[1]);
+
+      writer.writeString('\n');
+
+      writer.decreaseIndent();
+
+      writer.writeIndentation();
+    } else {
+      writer.writeString('{');
+      var separator = '"';
+
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('firstName');
+      writer.writeString('":');
+      writer.writeObject(firstName);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('middleName');
+      writer.writeString('":');
+      writer.writeObject(middleName);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('lastName');
+      writer.writeString('":');
+      writer.writeObject(lastName);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('dateOfBirth');
+      writer.writeString('":');
+      writer.writeObject(dateOfBirth?.toIso8601String());
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent(r'$house');
+      writer.writeString('":');
+      writer.writeObject(house == null ? null : house.toString().split('.')[1]);
+    }
+    writer.writeString('}');
+
+    return true;
+  }
 }
 
 Order _$OrderFromJson(Map<String, dynamic> json) => new Order(
@@ -50,7 +139,7 @@ Order _$OrderFromJson(Map<String, dynamic> json) => new Order(
           (json['altPlatforms'] as Map).values.map(
               (e) => e == null ? null : new Platform.fromJson(e as String)));
 
-abstract class _$OrderSerializerMixin {
+abstract class _$OrderSerializerMixin implements JsonWriteMySelf {
   int get count;
   bool get isRushed;
   Category get category;
@@ -65,6 +154,108 @@ abstract class _$OrderSerializerMixin {
         'platform': platform,
         'altPlatforms': altPlatforms
       };
+
+  @override
+  bool writeJson(JsonWriter writer) {
+    if (writer.isPretty) {
+      writer.writeString('{\n');
+
+      writer.increaseIndent();
+
+      var separator = '';
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('count');
+      writer.writeString('": ');
+      writer.writeObject(count);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('isRushed');
+      writer.writeString('": ');
+      writer.writeObject(isRushed);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('category');
+      writer.writeString('": ');
+      writer.writeObject(category.toString().split('.')[1]);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('items');
+      writer.writeString('": ');
+      writer.writeObject(items);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('platform');
+      writer.writeString('": ');
+      writer.writeObject(platform);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('altPlatforms');
+      writer.writeString('": ');
+      writer.writeObject(altPlatforms);
+
+      writer.writeString('\n');
+
+      writer.decreaseIndent();
+
+      writer.writeIndentation();
+    } else {
+      writer.writeString('{');
+      var separator = '"';
+
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('count');
+      writer.writeString('":');
+      writer.writeObject(count);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('isRushed');
+      writer.writeString('":');
+      writer.writeObject(isRushed);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('category');
+      writer.writeString('":');
+      writer.writeObject(category.toString().split('.')[1]);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('items');
+      writer.writeString('":');
+      writer.writeObject(items);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('platform');
+      writer.writeString('":');
+      writer.writeObject(platform);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('altPlatforms');
+      writer.writeString('":');
+      writer.writeObject(altPlatforms);
+    }
+    writer.writeString('}');
+
+    return true;
+  }
 }
 
 Item _$ItemFromJson(Map<String, dynamic> json) => new Item(json['price'] as int)
@@ -74,7 +265,7 @@ Item _$ItemFromJson(Map<String, dynamic> json) => new Item(json['price'] as int)
       ?.toList()
   ..rates = (json['rates'] as List)?.map((e) => e as int)?.toList();
 
-abstract class _$ItemSerializerMixin {
+abstract class _$ItemSerializerMixin implements JsonWriteMySelf {
   int get price;
   int get itemNumber;
   List<DateTime> get saleDates;
@@ -95,6 +286,85 @@ abstract class _$ItemSerializerMixin {
     val['rates'] = rates;
     return val;
   }
+
+  @override
+  bool writeJson(JsonWriter writer) {
+    if (writer.isPretty) {
+      writer.writeString('{\n');
+
+      writer.increaseIndent();
+
+      var separator = '';
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('price');
+      writer.writeString('": ');
+      writer.writeObject(price);
+
+      if (itemNumber != null) {
+        writer.writeString(separator);
+        separator = ',\n';
+        writer.writeIndentation();
+        writer.writeString('"');
+        writer.writeStringContent('item-number');
+        writer.writeString('": ');
+        writer.writeObject(itemNumber);
+      }
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('saleDates');
+      writer.writeString('": ');
+      writer.writeObject(saleDates?.map((e) => e?.toIso8601String())?.toList());
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('rates');
+      writer.writeString('": ');
+      writer.writeObject(rates);
+
+      writer.writeString('\n');
+
+      writer.decreaseIndent();
+
+      writer.writeIndentation();
+    } else {
+      writer.writeString('{');
+      var separator = '"';
+
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('price');
+      writer.writeString('":');
+      writer.writeObject(price);
+      if (itemNumber != null) {
+        writer.writeString(separator);
+        separator = ',"';
+        writer.writeStringContent('item-number');
+        writer.writeString('":');
+        writer.writeObject(itemNumber);
+      }
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('saleDates');
+      writer.writeString('":');
+      writer.writeObject(saleDates?.map((e) => e?.toIso8601String())?.toList());
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('rates');
+      writer.writeString('":');
+      writer.writeObject(rates);
+    }
+    writer.writeString('}');
+
+    return true;
+  }
 }
 
 Numbers _$NumbersFromJson(Map<String, dynamic> json) => new Numbers()
@@ -105,7 +375,7 @@ Numbers _$NumbersFromJson(Map<String, dynamic> json) => new Numbers()
   ..nnDoubles =
       (json['nnDoubles'] as List).map((e) => (e as num).toDouble()).toList();
 
-abstract class _$NumbersSerializerMixin {
+abstract class _$NumbersSerializerMixin implements JsonWriteMySelf {
   List<int> get ints;
   List<num> get nums;
   List<double> get doubles;
@@ -116,4 +386,80 @@ abstract class _$NumbersSerializerMixin {
         'doubles': doubles,
         'nnDoubles': nnDoubles
       };
+
+  @override
+  bool writeJson(JsonWriter writer) {
+    if (writer.isPretty) {
+      writer.writeString('{\n');
+
+      writer.increaseIndent();
+
+      var separator = '';
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('ints');
+      writer.writeString('": ');
+      writer.writeObject(ints);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('nums');
+      writer.writeString('": ');
+      writer.writeObject(nums);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('doubles');
+      writer.writeString('": ');
+      writer.writeObject(doubles);
+
+      writer.writeString(separator);
+      separator = ',\n';
+      writer.writeIndentation();
+      writer.writeString('"');
+      writer.writeStringContent('nnDoubles');
+      writer.writeString('": ');
+      writer.writeObject(nnDoubles);
+
+      writer.writeString('\n');
+
+      writer.decreaseIndent();
+
+      writer.writeIndentation();
+    } else {
+      writer.writeString('{');
+      var separator = '"';
+
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('ints');
+      writer.writeString('":');
+      writer.writeObject(ints);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('nums');
+      writer.writeString('":');
+      writer.writeObject(nums);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('doubles');
+      writer.writeString('":');
+      writer.writeObject(doubles);
+      writer.writeString(separator);
+      separator = ',"';
+      writer.writeStringContent('nnDoubles');
+      writer.writeString('":');
+      writer.writeObject(nnDoubles);
+    }
+    writer.writeString('}');
+
+    return true;
+  }
 }
