@@ -60,10 +60,6 @@ abstract class _$PersonSerializerMixin implements JsonWriteMySelf {
 
       writer.increaseIndent();
 
-      var separator = '';
-
-      writer.writeString(separator);
-      separator = ',\n';
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('firstName');
@@ -71,48 +67,42 @@ abstract class _$PersonSerializerMixin implements JsonWriteMySelf {
       writer.writeObject(firstName);
 
       if (middleName != null) {
-        writer.writeString(separator);
-        separator = ',\n';
+        writer.writeString(',\n');
         writer.writeIndentation();
         writer.writeString('"');
         writer.writeStringContent('middleName');
         writer.writeString('": ');
         writer.writeObject(middleName);
       }
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('lastName');
       writer.writeString('": ');
       writer.writeObject(lastName);
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('date-of-birth');
       writer.writeString('": ');
       writer.writeObject(dateOfBirth.toIso8601String());
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('last-order');
       writer.writeString('": ');
       writer.writeObject(lastOrder?.toIso8601String());
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('orders');
       writer.writeString('": ');
       writer.writeObject(orders);
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('related-people');
@@ -126,42 +116,32 @@ abstract class _$PersonSerializerMixin implements JsonWriteMySelf {
       writer.writeIndentation();
     } else {
       writer.writeString('{');
-      var separator = '"';
-
-      writer.writeString(separator);
-      separator = ',"';
       writer.writeStringContent('firstName');
       writer.writeString('":');
       writer.writeObject(firstName);
       if (middleName != null) {
-        writer.writeString(separator);
-        separator = ',"';
+        writer.writeString(',"');
         writer.writeStringContent('middleName');
         writer.writeString('":');
         writer.writeObject(middleName);
       }
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('lastName');
       writer.writeString('":');
       writer.writeObject(lastName);
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('date-of-birth');
       writer.writeString('":');
       writer.writeObject(dateOfBirth.toIso8601String());
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('last-order');
       writer.writeString('":');
       writer.writeObject(lastOrder?.toIso8601String());
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('orders');
       writer.writeString('":');
       writer.writeObject(orders);
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('related-people');
       writer.writeString('":');
       writer.writeObject(relatedPeople);
@@ -208,11 +188,13 @@ abstract class _$OrderSerializerMixin implements JsonWriteMySelf {
 
       writer.increaseIndent();
 
-      var separator = '';
-
+      var first = true;
       if (count != null) {
-        writer.writeString(separator);
-        separator = ',\n';
+        if (first) {
+          first = false;
+        } else {
+          writer.writeString(',\n');
+        }
         writer.writeIndentation();
         writer.writeString('"');
         writer.writeStringContent('count');
@@ -220,8 +202,11 @@ abstract class _$OrderSerializerMixin implements JsonWriteMySelf {
         writer.writeObject(count);
       }
       if (itemNumber != null) {
-        writer.writeString(separator);
-        separator = ',\n';
+        if (first) {
+          first = false;
+        } else {
+          writer.writeString(',\n');
+        }
         writer.writeIndentation();
         writer.writeString('"');
         writer.writeStringContent('itemNumber');
@@ -229,8 +214,11 @@ abstract class _$OrderSerializerMixin implements JsonWriteMySelf {
         writer.writeObject(itemNumber);
       }
       if (isRushed != null) {
-        writer.writeString(separator);
-        separator = ',\n';
+        if (first) {
+          first = false;
+        } else {
+          writer.writeString(',\n');
+        }
         writer.writeIndentation();
         writer.writeString('"');
         writer.writeStringContent('isRushed');
@@ -238,8 +226,11 @@ abstract class _$OrderSerializerMixin implements JsonWriteMySelf {
         writer.writeObject(isRushed);
       }
       if (item != null) {
-        writer.writeString(separator);
-        separator = ',\n';
+        if (first) {
+          first = false;
+        } else {
+          writer.writeString(',\n');
+        }
         writer.writeIndentation();
         writer.writeString('"');
         writer.writeStringContent('item');
@@ -254,32 +245,43 @@ abstract class _$OrderSerializerMixin implements JsonWriteMySelf {
       writer.writeIndentation();
     } else {
       writer.writeString('{');
-      var separator = '"';
-
+      var first = true;
       if (count != null) {
-        writer.writeString(separator);
-        separator = ',"';
+        if (first) {
+          first = false;
+        } else {
+          writer.writeString(',"');
+        }
         writer.writeStringContent('count');
         writer.writeString('":');
         writer.writeObject(count);
       }
       if (itemNumber != null) {
-        writer.writeString(separator);
-        separator = ',"';
+        if (first) {
+          first = false;
+        } else {
+          writer.writeString(',"');
+        }
         writer.writeStringContent('itemNumber');
         writer.writeString('":');
         writer.writeObject(itemNumber);
       }
       if (isRushed != null) {
-        writer.writeString(separator);
-        separator = ',"';
+        if (first) {
+          first = false;
+        } else {
+          writer.writeString(',"');
+        }
         writer.writeStringContent('isRushed');
         writer.writeString('":');
         writer.writeObject(isRushed);
       }
       if (item != null) {
-        writer.writeString(separator);
-        separator = ',"';
+        if (first) {
+          first = false;
+        } else {
+          writer.writeString(',"');
+        }
         writer.writeStringContent('item');
         writer.writeString('":');
         writer.writeObject(item);

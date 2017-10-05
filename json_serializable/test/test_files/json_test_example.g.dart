@@ -39,42 +39,34 @@ abstract class _$PersonSerializerMixin implements JsonWriteMySelf {
 
       writer.increaseIndent();
 
-      var separator = '';
-
-      writer.writeString(separator);
-      separator = ',\n';
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('firstName');
       writer.writeString('": ');
       writer.writeObject(firstName);
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('middleName');
       writer.writeString('": ');
       writer.writeObject(middleName);
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('lastName');
       writer.writeString('": ');
       writer.writeObject(lastName);
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('dateOfBirth');
       writer.writeString('": ');
       writer.writeObject(dateOfBirth?.toIso8601String());
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent(r'$house');
@@ -88,30 +80,22 @@ abstract class _$PersonSerializerMixin implements JsonWriteMySelf {
       writer.writeIndentation();
     } else {
       writer.writeString('{');
-      var separator = '"';
-
-      writer.writeString(separator);
-      separator = ',"';
       writer.writeStringContent('firstName');
       writer.writeString('":');
       writer.writeObject(firstName);
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('middleName');
       writer.writeString('":');
       writer.writeObject(middleName);
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('lastName');
       writer.writeString('":');
       writer.writeObject(lastName);
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('dateOfBirth');
       writer.writeString('":');
       writer.writeObject(dateOfBirth?.toIso8601String());
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent(r'$house');
       writer.writeString('":');
       writer.writeObject(house == null ? null : house.toString().split('.')[1]);
@@ -162,50 +146,41 @@ abstract class _$OrderSerializerMixin implements JsonWriteMySelf {
 
       writer.increaseIndent();
 
-      var separator = '';
-
-      writer.writeString(separator);
-      separator = ',\n';
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('count');
       writer.writeString('": ');
       writer.writeObject(count);
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('isRushed');
       writer.writeString('": ');
       writer.writeObject(isRushed);
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('category');
       writer.writeString('": ');
       writer.writeObject(category.toString().split('.')[1]);
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('items');
       writer.writeString('": ');
       writer.writeObject(items);
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('platform');
       writer.writeString('": ');
       writer.writeObject(platform);
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('altPlatforms');
@@ -219,35 +194,26 @@ abstract class _$OrderSerializerMixin implements JsonWriteMySelf {
       writer.writeIndentation();
     } else {
       writer.writeString('{');
-      var separator = '"';
-
-      writer.writeString(separator);
-      separator = ',"';
       writer.writeStringContent('count');
       writer.writeString('":');
       writer.writeObject(count);
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('isRushed');
       writer.writeString('":');
       writer.writeObject(isRushed);
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('category');
       writer.writeString('":');
       writer.writeObject(category.toString().split('.')[1]);
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('items');
       writer.writeString('":');
       writer.writeObject(items);
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('platform');
       writer.writeString('":');
       writer.writeObject(platform);
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('altPlatforms');
       writer.writeString('":');
       writer.writeObject(altPlatforms);
@@ -294,10 +260,6 @@ abstract class _$ItemSerializerMixin implements JsonWriteMySelf {
 
       writer.increaseIndent();
 
-      var separator = '';
-
-      writer.writeString(separator);
-      separator = ',\n';
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('price');
@@ -305,24 +267,21 @@ abstract class _$ItemSerializerMixin implements JsonWriteMySelf {
       writer.writeObject(price);
 
       if (itemNumber != null) {
-        writer.writeString(separator);
-        separator = ',\n';
+        writer.writeString(',\n');
         writer.writeIndentation();
         writer.writeString('"');
         writer.writeStringContent('item-number');
         writer.writeString('": ');
         writer.writeObject(itemNumber);
       }
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('saleDates');
       writer.writeString('": ');
       writer.writeObject(saleDates?.map((e) => e?.toIso8601String())?.toList());
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('rates');
@@ -336,27 +295,20 @@ abstract class _$ItemSerializerMixin implements JsonWriteMySelf {
       writer.writeIndentation();
     } else {
       writer.writeString('{');
-      var separator = '"';
-
-      writer.writeString(separator);
-      separator = ',"';
       writer.writeStringContent('price');
       writer.writeString('":');
       writer.writeObject(price);
       if (itemNumber != null) {
-        writer.writeString(separator);
-        separator = ',"';
+        writer.writeString(',"');
         writer.writeStringContent('item-number');
         writer.writeString('":');
         writer.writeObject(itemNumber);
       }
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('saleDates');
       writer.writeString('":');
       writer.writeObject(saleDates?.map((e) => e?.toIso8601String())?.toList());
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('rates');
       writer.writeString('":');
       writer.writeObject(rates);
@@ -394,34 +346,27 @@ abstract class _$NumbersSerializerMixin implements JsonWriteMySelf {
 
       writer.increaseIndent();
 
-      var separator = '';
-
-      writer.writeString(separator);
-      separator = ',\n';
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('ints');
       writer.writeString('": ');
       writer.writeObject(ints);
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('nums');
       writer.writeString('": ');
       writer.writeObject(nums);
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('doubles');
       writer.writeString('": ');
       writer.writeObject(doubles);
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('nnDoubles');
@@ -435,25 +380,18 @@ abstract class _$NumbersSerializerMixin implements JsonWriteMySelf {
       writer.writeIndentation();
     } else {
       writer.writeString('{');
-      var separator = '"';
-
-      writer.writeString(separator);
-      separator = ',"';
       writer.writeStringContent('ints');
       writer.writeString('":');
       writer.writeObject(ints);
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('nums');
       writer.writeString('":');
       writer.writeObject(nums);
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('doubles');
       writer.writeString('":');
       writer.writeObject(doubles);
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('nnDoubles');
       writer.writeString('":');
       writer.writeObject(nnDoubles);

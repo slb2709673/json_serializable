@@ -37,50 +37,41 @@ abstract class _$StatsSerializerMixin implements JsonWriteMySelf {
 
       writer.increaseIndent();
 
-      var separator = '';
-
-      writer.writeString(separator);
-      separator = ',\n';
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('count');
       writer.writeString('": ');
       writer.writeObject(count);
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('mean');
       writer.writeString('": ');
       writer.writeObject(mean);
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('median');
       writer.writeString('": ');
       writer.writeObject(median);
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('max');
       writer.writeString('": ');
       writer.writeObject(max);
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('min');
       writer.writeString('": ');
       writer.writeObject(min);
 
-      writer.writeString(separator);
-      separator = ',\n';
+      writer.writeString(',\n');
       writer.writeIndentation();
       writer.writeString('"');
       writer.writeStringContent('standardDeviation');
@@ -94,35 +85,26 @@ abstract class _$StatsSerializerMixin implements JsonWriteMySelf {
       writer.writeIndentation();
     } else {
       writer.writeString('{');
-      var separator = '"';
-
-      writer.writeString(separator);
-      separator = ',"';
       writer.writeStringContent('count');
       writer.writeString('":');
       writer.writeObject(count);
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('mean');
       writer.writeString('":');
       writer.writeObject(mean);
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('median');
       writer.writeString('":');
       writer.writeObject(median);
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('max');
       writer.writeString('":');
       writer.writeObject(max);
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('min');
       writer.writeString('":');
       writer.writeObject(min);
-      writer.writeString(separator);
-      separator = ',"';
+      writer.writeString(',"');
       writer.writeStringContent('standardDeviation');
       writer.writeString('":');
       writer.writeObject(standardDeviation);

@@ -162,18 +162,47 @@ class JsonSerializableGenerator
     var indentedItems = new StringBuffer();
     var items = new StringBuffer();
 
+
+    var first = true;
+    var mightBeFirst = false;
+
     for (var field in fields) {
-      //       pairs.add('${_safeNameAccess(field)}: ${_serializeField(field )}');
 
-      var skipIfNull = !_includeIfNull(field, classIncludeIfNull);
+      var includeIfNull = _includeIfNull(field, classIncludeIfNull);
 
-      if (skipIfNull) {
+      if (first && !includeIfNull) {
+        indentedItems.writeln('var first = true;');
+        items.writeln('var first = true;');
+        mightBeFirst = true;
+      }
+
+      if (!includeIfNull) {
         indentedItems.writeln('if (${field.name} != null) {');
         items.writeln('if (${field.name} != null) {');
       }
 
-      indentedItems.writeln('writer.writeString(separator);');
-      indentedItems.writeln("separator = ',\\n';");
+      if (mightBeFirst) {
+        indentedItems.writeln('''        if (first) {
+          first = false;
+        } else {
+          writer.writeString(',\\n');
+        }''');
+        items.writeln('''        if (first) {
+          first = false;
+        } else {
+          writer.writeString(',\"');
+        }''');
+        if (includeIfNull) {
+          mightBeFirst = false;
+        }
+      } else if(!first) {
+        // Write normal separators
+        indentedItems.writeln("writer.writeString(',\\n');");
+        items.writeln("writer.writeString(',\"');");
+      }
+
+      first = false;
+
 
       indentedItems.writeln('writer.writeIndentation();');
       indentedItems.writeln("writer.writeString('\"');");
@@ -183,13 +212,11 @@ class JsonSerializableGenerator
       indentedItems.writeln('writer.writeObject(${_serializeField(field )});');
       indentedItems.writeln();
 
-      items.writeln('writer.writeString(separator);');
-      items.writeln("separator = ',\"';");
       items.writeln('writer.writeStringContent(${_safeNameAccess(field)});');
       items.writeln("writer.writeString('\":');");
       items.writeln('writer.writeObject(${_serializeField(field )});');
 
-      if (skipIfNull) {
+      if (!includeIfNull) {
         // close if block
         indentedItems.writeln('}');
         items.writeln('}');
@@ -207,8 +234,6 @@ bool writeJson(JsonWriter writer) {
 
     writer.increaseIndent();
 
-    var separator = '';
-    
     $indentedItems    
     
     writer.writeString('\\n');
@@ -218,8 +243,6 @@ bool writeJson(JsonWriter writer) {
     writer.writeIndentation();
   } else {
     writer.writeString('{');
-    var separator = '"';
-    
     $items
   }
   writer.writeString('}');
