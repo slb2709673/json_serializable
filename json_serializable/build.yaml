@@ -6,3 +6,72 @@ builders:
     build_extensions: {".dart": [".g.dart"]}
     auto_apply: dependents
     build_to: source
+
+  _non_null:
+    # See https://github.com/dart-lang/build/issues/1423
+    import: "../../../tool/builder.dart"
+    builder_factories: ["nonNull"]
+    build_extensions: {".dart": [".g.dart"]}
+    build_to: source
+
+  _wrapped:
+    # See https://github.com/dart-lang/build/issues/1423
+    import: "../../../tool/builder.dart"
+    builder_factories: ["wrapped"]
+    build_extensions: {".dart": [".g.dart"]}
+    build_to: source
+
+targets:
+  $default:
+    sources:
+      exclude:
+      - test/test_files/kitchen_sink*wrapped.dart
+      - test/test_files/json_test_example*wrapped.dart
+    builders:
+      json_serializable|_non_null:
+        generate_for:
+          include:
+          - test/test_files/kitchen_sink.dart
+          - test/test_files/json_test_example.dart
+      json_serializable|_wrapped:
+        generate_for:
+          include:
+          - test/test_files/kitchen_sink.dart
+          - test/test_files/kitchen_sink.non_nullable.dart
+          - test/test_files/json_test_example.dart
+          - test/test_files/json_test_example.non_nullable.dart
+
+
+      json_serializable:
+        generate_for:
+          include:
+          - example/example.dart
+          - test/test_files/json_literal.dart
+          - test/test_files/json_test_example.dart
+          - test/test_files/json_test_example.non_nullable.dart
+          - test/test_files/kitchen_sink.dart
+          - test/test_files/kitchen_sink.non_nullable.dart
+        options:
+          header: |+
+           // Copyright (c) 2017, the Dart project authors. Please see the AUTHORS file
+           // for details. All rights reserved. Use of this source code is governed by a
+           // BSD-style license that can be found in the LICENSE file.
+
+           // GENERATED CODE - DO NOT MODIFY BY HAND
+  _bob:
+    dependencies:
+    - json_serializable
+    sources:
+      include:
+      - test/test_files/kitchen_sink*wrapped.dart
+      - test/test_files/json_test_example*wrapped.dart
+    builders:
+      json_serializable:
+        options:
+          header: |+
+           // Copyright (c) 2017, the Dart project authors. Please see the AUTHORS file
+           // for details. All rights reserved. Use of this source code is governed by a
+           // BSD-style license that can be found in the LICENSE file.
+
+           // GENERATED CODE - DO NOT MODIFY BY HAND
+
