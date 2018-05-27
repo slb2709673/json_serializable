@@ -14,6 +14,8 @@
 
 * Added support for `Uri` conversion.
 
+* Added `explicit_to_json` configuration option.
+
 ## 0.5.6
 
 * Added support for `JsonSerializable.disallowUnrecognizedKeys`.
